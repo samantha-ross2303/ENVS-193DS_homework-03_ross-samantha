@@ -1,0 +1,17 @@
+---
+title: "ENVS-193DS_homework-03"
+author: "Samantha Ross"
+format: html
+---
+
+```{r reading-in-packages}
+
+library(tidyverse)
+library(flextable)
+library(gt)
+library(here)
+library(janitor)
+library(readxl)
+
+```
+
