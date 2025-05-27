@@ -92,7 +92,6 @@ ggplot(data = personal_data_clean, # starting data frame
   )+ # changing the colors from default
   labs(
     title = "Average Walking and Running Distance\nby Day", # adding a title
-    subtitle = "Samantha Ross", # adding a subtitle 
     x = "Day", # changing the name of the x-axis
     y = "Walking and Running Distance (miles)" # changing the name of the y-axis
   ) +
@@ -106,6 +105,10 @@ ggplot(data = personal_data_clean, # starting data frame
   )
 
 ```
+
+### c. Caption
+
+Figure 1. Comparison of average walking and running distance (miles) ± standard error (SE) by school day (n = 18) and non-school day (n = 12) sites. Open circles represent an individual day. Filled circles with error bars indicate the mean ± standard error for each type of day. Data from Samantha Ross.
 
 
 
