@@ -163,4 +163,6 @@ The table is clear in showing which variables were tested and the resulting p-va
 
 The layout of the table is clean and minimal. The heavy border between the top row and the rest of the rows makes it clear what the column name is. They include an asterisks next to P-value to reference the alpha level in the footnote to make the significance level clear for readers.
 
-### d. Reccomendations
+### d. Recommendations
+
+To make this table better, I recommend adding two additional columns - "Mean (Participant Group)" and "Mean (Non-Participant Group). P-values alone do not tell us how large or small the differences were between participants and non-participants. Including the mean scores for each group and their standard deviations would allow readers to interpret the direction and magnitude of differences, and understand the farmers' attitudes toward agroforestry. I would also make the footnote (where the alpha value is displayed) bold, so that readers do not miss it. 
