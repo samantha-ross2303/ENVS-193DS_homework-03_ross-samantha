@@ -151,12 +151,16 @@ An affective visualization of my personal data could take the form of a **flowin
 
 ### a. Revisit and summarize
 
-The authors are addressing if participation in an agroforestry development program impact farmer's self-efficacy, attitudes, and intentions to adopt or maintain agroforestry. They are also testing which variables - such as self-efficacy, socio-economic factors, and attitudes - significantly predict the intention to adopt or maintain agroforestry. T-tests are included in this paper to determine if there were any significant differences between the agroforestry development program participants and non-participants. The response variables are scores on indices and scales for self-efficacy, attitudes and intentions to adopt and maintain agroforestry in Southern Bahia, Brazil. The predictor variable is participation in the agroforestry development program (yes/no).
+The authors are addressing if participation in an agroforestry development program impact farmer's self-efficacy, attitudes, and intentions to adopt or maintain agroforestry. They are also testing which variables - such as self-efficacy, socio-economic factors, and attitudes - significantly predict the intention to adopt or maintain agroforestry. Student's t-tests are included in this paper to determine if there were any significant differences between the agroforestry development program participants and non-participants. The response variables are scores on indices and scales for self-efficacy, attitudes and intentions to adopt and maintain agroforestry in Southern Bahia, Brazil. The predictor variable is participation in the agroforestry development program (yes/no).
 
 ![](images/Screen%20Shot%202025-05-27%20at%203.27.58%20PM.png)
 
 ### b. Visual clarity
 
+The table is clear in showing which variables were tested and the resulting p-values, but it lacks key context and descriptive statistics that would help readers fully interpret the findings. For example, we know that program participation did not contribute significantly to farmers’ intentions to adopt and maintain agroforestry, but we do not know what their intentions were. This could be improved by displaying the mean scores.
+
 ### c. Aesthetic clarity
+
+The layout of the table is clean and minimal. The heavy border between the top row and the rest of the rows makes it clear what the column name is. They include an asterisks next to P-value to reference the alpha level in the footnote to make the significance level clear for readers.
 
 ### d. Reccomendations
