@@ -28,7 +28,7 @@ library(readxl)
 
 ## Problem 1. Personal Data
 
-### a. Data Summarizing 
+### a. Data Summarizing
 
 I could calculate the **mean walking and running distance** to compare between **school days and non-school days**, because I suspect that I walk more on school days due to commuting between classes and other campus activities. This comparison would help show how my routine affects my physical activity levels.
 
@@ -139,10 +139,24 @@ personal_data_summary |> # starting data frame
 
 ### a. Describe in words what an affective visualization could look like for your personal data
 
-An affective visualization of my personal data could take the form of a **flowing landscape painting**, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect my level of activity. For example, tall peaks on school days could symbolize high activity, while flatter areas on non-school days show rest and stillness. The color palette could shift from cool blues for calm, low-activity days to warm reds for energetic, active days. Rather than just presenting information, the piece would evoke the rhythms and emotions of my daily life, making the data feel more personal. 
+An affective visualization of my personal data could take the form of a **flowing landscape painting**, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect my level of activity. For example, tall peaks on school days could symbolize high activity, while flatter areas on non-school days show rest and stillness. The color palette could shift from cool blues for calm, low-activity days to warm reds for energetic, active days. Rather than just presenting information, the piece would evoke the rhythms and emotions of my daily life, making the data feel more personal.
 
+### b. Create a sketch (on paper) of your idea
 
+### c. Make a draft of your visualization
 
+### d. Write an artist statement
 
+## Problem 3. Statistical critique
 
+### a. Revisit and summarize
 
+The authors are addressing if participation in an agroforestry development program impact farmer's self-efficacy, attitudes, and intentions to adopt or maintain agroforestry. They are also testing which variables - such as self-efficacy, socio-economic factors, and attitudes - significantly predict the intention to adopt or maintain agroforestry. T-tests are included in this paper to determine if there were any significant differences between the agroforestry development program participants and non-participants. The response variables are scores on indices and scales for self-efficacy, attitudes and intentions to adopt and maintain agroforestry in Southern Bahia, Brazil. The predictor variable is participation in the agroforestry development program (yes/no).
+
+![](images/Screen%20Shot%202025-05-27%20at%203.27.58%20PM.png)
+
+### b. Visual clarity
+
+### c. Aesthetic clarity
+
+### d. Reccomendations
