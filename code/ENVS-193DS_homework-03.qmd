@@ -1,8 +1,16 @@
 ---
 title: "ENVS-193DS_homework-03"
 author: "Samantha Ross"
-format: html
+date: "28-05-2025"
+format:
+  html:
+    toc: true # use this to display a table of contents
+execute:
+  message: false # use this to make sure messages don't show up
+  warning: false # use this to make sure warnings don't show up
 ---
+
+# Part 1. Set up tasks
 
 ```{r reading-in-packages}
 
@@ -14,4 +22,22 @@ library(janitor)
 library(readxl)
 
 ```
+
+# Part 2. Problems
+
+## Problem 1. Personal Data
+
+### a. Data Summarizing 
+
+I could calculate the **mean walking and running distance** to compare between **school days and non-school days**, because I suspect that I walk more on school days due to commuting between classes and other campus activities. This comparison would help show how my routine affects my physical activity levels.
+
+
+
+
+
+
+
+
+
+
 
