@@ -110,6 +110,30 @@ ggplot(data = personal_data_clean, # starting data frame
 
 Figure 1. Comparison of average walking and running distance (miles) ± standard error (SE) by school day (n = 18) and non-school day (n = 12) sites. Open circles represent an individual day. Filled circles with error bars indicate the mean ± standard error for each type of day. Data from Samantha Ross.
 
+### d. Table presentation
+
+```{r personal-data-summary-table}
+
+personal_data_summary |> # starting data frame
+  select(!c(n, y)) |>  # exclude n and y columns
+  rename(
+    "Mean" = mean, 
+    "Day" = school_day,
+    "Standard deviation" = sd,
+    "Standard error" = se,
+    "95% CI Lower" = ymin,
+    "95% CI Upper" = ymax
+  ) |> # renaming columns
+  gt() |> # gt call
+  tab_header(
+    title = "Summary of Walking and Running Distance by Day"
+  ) |> # adding a title
+  fmt_number(
+    columns = where(is.numeric),
+    decimals = 1
+  ) # rounding all numbers to one decimal point
+
+```
 
 
 
