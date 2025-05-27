@@ -5,7 +5,7 @@
 
 **Author**: Samantha Ross  
 
-**Research focus**: I visualized average walking and running distance as a function of school day (yes or no).
+**Focus**: I visualized average walking and running distance as a function of school day (yes or no). I drafted an affective visualization using my personal data. I conducted a statistical critique of my chosen [paper](https://link.springer.com/article/10.1007/s10457-008-9114-9#Fig1). 
 
 ## Data and file overview
 

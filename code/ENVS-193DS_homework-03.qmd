@@ -22,6 +22,8 @@ library(here)
 library(janitor)
 library(readxl)
 
+personal_data <- read_csv(here("data", "[ENVS 193DS] Personal Data - Samantha Ross - Sheet1 (1).csv")) # storing personal data as an object called personal_data
+
 ```
 
 # Part 2. Problems
@@ -35,8 +37,6 @@ I could calculate the **mean walking and running distance** to compare between *
 ### b. Visualization
 
 ```{r personal-data-visualization}
-
-personal_data <- read_csv(here("data", "[ENVS 193DS] Personal Data - Samantha Ross - Sheet1 (1).csv")) # storing personal data as an object called personal_data
 
 #cleaning data 
 personal_data_clean <- personal_data |> #creating a clean data frame
@@ -139,7 +139,7 @@ personal_data_summary |> # starting data frame
 
 ### a. Describe in words what an affective visualization could look like for your personal data
 
-An affective visualization of my personal data could take the form of a **flowing landscape painting**, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect my level of activity. For example, tall peaks on school days could symbolize high activity, while flatter areas on non-school days show rest and stillness. The color palette could shift from cool blues for calm, low-activity days to warm reds for energetic, active days. Rather than just presenting information, the piece would evoke the rhythms and emotions of my daily life, making the data feel more personal.
+An affective visualization of my personal data could take the form of a **flowing landscape painting**, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect the high temperature. For example, cool blues represent lower temperatures and warm reds represent warmer temperatures. It could follow chronological order, where each point is a separate day. Rather than just presenting information, the piece would evoke the rhythms of my daily life and connects it to my environment, making the data feel more personal.
 
 ### b. Create a sketch (on paper) of your idea
 
@@ -165,4 +165,4 @@ The layout of the table is clean and minimal. The heavy border between the top r
 
 ### d. Recommendations
 
-To make this table better, I recommend adding two additional columns - "Mean (Participant Group)" and "Mean (Non-Participant Group). P-values alone do not tell us how large or small the differences were between participants and non-participants. Including the mean scores for each group and their standard deviations would allow readers to interpret the direction and magnitude of differences, and understand the farmers' attitudes toward agroforestry. I would also make the footnote (where the alpha value is displayed) bold, so that readers do not miss it. 
+To make this table better, I recommend adding two additional columns - "Mean (Participant Group)" and "Mean (Non-Participant Group). P-values alone do not tell us how large or small the differences were between participants and non-participants. Including the mean scores for each group and their standard deviations would allow readers to interpret the direction and magnitude of differences, and understand the farmers' attitudes toward agroforestry. I would also make the footnote (where the alpha value is displayed) bold, so that readers do not miss it.
