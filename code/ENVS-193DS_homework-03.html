@@ -151,7 +151,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>personal_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"[ENVS 193DS] Personal Data - Samantha Ross - Sheet1 (1).csv"</span>)) <span class="co"># storing personal data as an object called personal_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="part-2.-problems" class="level1">
@@ -165,34 +169,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="b.-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="b.-visualization">b. Visualization</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>personal_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"[ENVS 193DS] Personal Data - Samantha Ross - Sheet1 (1).csv"</span>)) <span class="co"># storing personal data as an object called personal_data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#cleaning data </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>personal_data_clean <span class="ot">&lt;-</span> personal_data <span class="sc">|&gt;</span> <span class="co">#creating a clean data frame</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="co"># cleaning column names</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">school_day =</span> <span class="fu">as_factor</span>(school_day),</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">school_day =</span> <span class="fu">fct_relevel</span>(school_day,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"no"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"yes"</span>), <span class="co"># making sure that school_day is a factor and ordering levels</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">school_day =</span> <span class="fu">case_when</span>(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           school_day <span class="sc">==</span> <span class="st">"yes"</span> <span class="sc">~</span> <span class="st">"School Day"</span>, </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           school_day <span class="sc">==</span> <span class="st">"no"</span> <span class="sc">~</span> <span class="st">"Non-School Day"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> <span class="co"># replacing the values in the school_day column so that "yes" is now "School Day" and "no" is now "Non-School Day"</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(school_day, walking_and_running_distance_miles) <span class="co"># selecting columns of interest</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#summarizing data</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>personal_data_summary <span class="ot">&lt;-</span> personal_data_clean <span class="sc">|&gt;</span> <span class="co"># starting with the clean data frame</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(school_day) <span class="sc">|&gt;</span> <span class="co"># group by school day</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(walking_and_running_distance_miles), <span class="co"># calculate mean miles walked/ran</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(walking_and_running_distance_miles), <span class="co"># calculate the number of observations per type of day (sample size)</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(walking_and_running_distance_miles), <span class="co"># calculate the standard deviation</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n), <span class="co"># calculate the standard error</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">ci =</span> <span class="fu">mean_cl_normal</span>(walking_and_running_distance_miles) <span class="co"># calculate the confidence interval</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">|&gt;</span> </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(ci)  <span class="co"># split the CI column into ymin and ymax</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># display personal_data_summary</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>personal_data_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cleaning data </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>personal_data_clean <span class="ot">&lt;-</span> personal_data <span class="sc">|&gt;</span> <span class="co">#creating a clean data frame</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="co"># cleaning column names</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">school_day =</span> <span class="fu">as_factor</span>(school_day),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">school_day =</span> <span class="fu">fct_relevel</span>(school_day,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"no"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"yes"</span>), <span class="co"># making sure that school_day is a factor and ordering levels</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">school_day =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           school_day <span class="sc">==</span> <span class="st">"yes"</span> <span class="sc">~</span> <span class="st">"School Day"</span>, </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           school_day <span class="sc">==</span> <span class="st">"no"</span> <span class="sc">~</span> <span class="st">"Non-School Day"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span> <span class="co"># replacing the values in the school_day column so that "yes" is now "School Day" and "no" is now "Non-School Day"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(school_day, walking_and_running_distance_miles) <span class="co"># selecting columns of interest</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#summarizing data</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>personal_data_summary <span class="ot">&lt;-</span> personal_data_clean <span class="sc">|&gt;</span> <span class="co"># starting with the clean data frame</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(school_day) <span class="sc">|&gt;</span> <span class="co"># group by school day</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(walking_and_running_distance_miles), <span class="co"># calculate mean miles walked/ran</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(walking_and_running_distance_miles), <span class="co"># calculate the number of observations per type of day (sample size)</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(walking_and_running_distance_miles), <span class="co"># calculate the standard deviation</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n), <span class="co"># calculate the standard error</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">ci =</span> <span class="fu">mean_cl_normal</span>(walking_and_running_distance_miles) <span class="co"># calculate the confidence interval</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(ci)  <span class="co"># split the CI column into ymin and ymax</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># display personal_data_summary</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>personal_data_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
   school_day      mean     n    sd    se     y  ymin  ymax
@@ -273,23 +275,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">1</span></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="co"># rounding all numbers to one decimal point</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="jyagyzabhi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jyagyzabhi table {
+<div id="pripispohi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pripispohi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jyagyzabhi thead, #jyagyzabhi tbody, #jyagyzabhi tfoot, #jyagyzabhi tr, #jyagyzabhi td, #jyagyzabhi th {
+#pripispohi thead, #pripispohi tbody, #pripispohi tfoot, #pripispohi tr, #pripispohi td, #pripispohi th {
   border-style: none;
 }
 
-#jyagyzabhi p {
+#pripispohi p {
   margin: 0;
   padding: 0;
 }
 
-#jyagyzabhi .gt_table {
+#pripispohi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -315,12 +317,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_caption {
+#pripispohi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jyagyzabhi .gt_title {
+#pripispohi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -332,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#jyagyzabhi .gt_subtitle {
+#pripispohi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -344,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#jyagyzabhi .gt_heading {
+#pripispohi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -356,13 +358,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_bottom_border {
+#pripispohi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_col_headings {
+#pripispohi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -377,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_col_heading {
+#pripispohi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -397,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jyagyzabhi .gt_column_spanner_outer {
+#pripispohi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -409,15 +411,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#jyagyzabhi .gt_column_spanner_outer:first-child {
+#pripispohi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jyagyzabhi .gt_column_spanner_outer:last-child {
+#pripispohi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jyagyzabhi .gt_column_spanner {
+#pripispohi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -429,11 +431,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#jyagyzabhi .gt_spanner_row {
+#pripispohi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jyagyzabhi .gt_group_heading {
+#pripispohi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -459,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#jyagyzabhi .gt_empty_group_heading {
+#pripispohi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -474,15 +476,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#jyagyzabhi .gt_from_md > :first-child {
+#pripispohi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jyagyzabhi .gt_from_md > :last-child {
+#pripispohi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jyagyzabhi .gt_row {
+#pripispohi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -501,7 +503,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jyagyzabhi .gt_stub {
+#pripispohi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -514,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jyagyzabhi .gt_stub_row_group {
+#pripispohi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -528,15 +530,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#jyagyzabhi .gt_row_group_first td {
+#pripispohi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jyagyzabhi .gt_row_group_first th {
+#pripispohi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jyagyzabhi .gt_summary_row {
+#pripispohi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -546,16 +548,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jyagyzabhi .gt_first_summary_row {
+#pripispohi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_first_summary_row.thick {
+#pripispohi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jyagyzabhi .gt_last_summary_row {
+#pripispohi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -565,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_grand_summary_row {
+#pripispohi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -575,7 +577,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jyagyzabhi .gt_first_grand_summary_row {
+#pripispohi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -585,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_last_grand_summary_row_top {
+#pripispohi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -595,11 +597,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_striped {
+#pripispohi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jyagyzabhi .gt_table_body {
+#pripispohi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -608,7 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_footnotes {
+#pripispohi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -622,7 +624,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_footnote {
+#pripispohi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -631,7 +633,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jyagyzabhi .gt_sourcenotes {
+#pripispohi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -645,7 +647,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jyagyzabhi .gt_sourcenote {
+#pripispohi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -653,72 +655,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jyagyzabhi .gt_left {
+#pripispohi .gt_left {
   text-align: left;
 }
 
-#jyagyzabhi .gt_center {
+#pripispohi .gt_center {
   text-align: center;
 }
 
-#jyagyzabhi .gt_right {
+#pripispohi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jyagyzabhi .gt_font_normal {
+#pripispohi .gt_font_normal {
   font-weight: normal;
 }
 
-#jyagyzabhi .gt_font_bold {
+#pripispohi .gt_font_bold {
   font-weight: bold;
 }
 
-#jyagyzabhi .gt_font_italic {
+#pripispohi .gt_font_italic {
   font-style: italic;
 }
 
-#jyagyzabhi .gt_super {
+#pripispohi .gt_super {
   font-size: 65%;
 }
 
-#jyagyzabhi .gt_footnote_marks {
+#pripispohi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jyagyzabhi .gt_asterisk {
+#pripispohi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jyagyzabhi .gt_indent_1 {
+#pripispohi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jyagyzabhi .gt_indent_2 {
+#pripispohi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jyagyzabhi .gt_indent_3 {
+#pripispohi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jyagyzabhi .gt_indent_4 {
+#pripispohi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jyagyzabhi .gt_indent_5 {
+#pripispohi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jyagyzabhi .katex-display {
+#pripispohi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jyagyzabhi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pripispohi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -766,16 +768,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="problem-2.-affective-visualization">Problem 2. Affective visualization</h2>
 <section id="a.-describe-in-words-what-an-affective-visualization-could-look-like-for-your-personal-data" class="level3">
 <h3 class="anchored" data-anchor-id="a.-describe-in-words-what-an-affective-visualization-could-look-like-for-your-personal-data">a. Describe in words what an affective visualization could look like for your personal data</h3>
-<p>An affective visualization of my personal data could take the form of a <strong>flowing landscape painting</strong>, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect my level of activity. For example, tall peaks on school days could symbolize high activity, while flatter areas on non-school days show rest and stillness. The color palette could shift from cool blues for calm, low-activity days to warm reds for energetic, active days. Rather than just presenting information, the piece would evoke the rhythms and emotions of my daily life, making the data feel more personal.</p>
+<p>An affective visualization of my personal data could take the form of a <strong>flowing landscape painting</strong>, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect the high temperature. For example, cool blues represent lower temperatures and warm reds represent warmer temperatures. It could follow chronological order, where each point is a separate day. Rather than just presenting information, the piece would evoke the rhythms of my daily life and connects it to my environment, making the data feel more personal. I will first create this with code in R, and then make it more artistic via painting.</p>
 </section>
 <section id="b.-create-a-sketch-on-paper-of-your-idea" class="level3">
 <h3 class="anchored" data-anchor-id="b.-create-a-sketch-on-paper-of-your-idea">b. Create a sketch (on paper) of your idea</h3>
+<p><img src="images/IMG_9331.jpg" class="img-fluid"></p>
 </section>
 <section id="c.-make-a-draft-of-your-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="c.-make-a-draft-of-your-visualization">c.&nbsp;Make a draft of your visualization</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>personal_data <span class="ot">&lt;-</span> personal_data <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date)) <span class="co"># converting date column to date type</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>temp_min <span class="ot">&lt;-</span> <span class="fu">min</span>(personal_data<span class="sc">$</span>high_temperature) <span class="co"># computing temp min for color gradient</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>temp_max <span class="ot">&lt;-</span> <span class="fu">max</span>(personal_data<span class="sc">$</span>high_temperature)<span class="co"># computing temp max for color gradient</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(personal_data,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> date)) <span class="sc">+</span> <span class="co"># personal_data starting data frame</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> date <span class="sc">-</span> <span class="fl">0.5</span>, <span class="at">xmax =</span> date <span class="sc">+</span> <span class="fl">0.5</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">fill =</span> high_temperature), </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span>   <span class="co"># adding in background panels to reflect high temperatures, with medium transparency</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"skyblue"</span>, <span class="st">"cyan"</span>, <span class="st">"lightyellow"</span>, <span class="st">"yellow2"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span>),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(temp_min, temp_max),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"High Temp (°F)"</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="co"># creating a temperature gradient</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> walking_and_running_distance_miles), <span class="at">color =</span> <span class="st">"brown2"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> <span class="co"># adding a line display the daily walking and running distance in chronological order</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> walking_and_running_distance_miles), <span class="at">color =</span> <span class="st">"green4"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># adding points for each individual day</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Affective Visualization of Walking and Running Distance</span><span class="sc">\n</span><span class="st">per Day and High Temperature"</span>, <span class="co"># adding a title </span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>, <span class="co"># changing x-axis name </span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Walking and Running Distance (miles)"</span> <span class="co"># changing y-axis name</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># changing theme from default</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(), <span class="co"># removing the grid</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>), <span class="co"># making the title bold</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_blank</span>(), <span class="co"># making the background white</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), <span class="co"># making the text larger</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span> <span class="co"># changing the legend position</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_homework-03_files/figure-html/affective-visualization-draft-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="d.-write-an-artist-statement" class="level3">
 <h3 class="anchored" data-anchor-id="d.-write-an-artist-statement">d.&nbsp;Write an artist statement</h3>
+<p>In my affective data visualization, I am showing a line graph that depicts my walking and running distance (in miles) per day. It follows a chronological order. There are background panels behind each data point to depict the daily high temperature. I was influenced by Lorraine Woodruff-Long’s warming strips quilt, which inspired me to create a temperature gradient. The form of my work is written code. I created this data visualization on R, and researched how to create a color gradient - since we have not learned this in class.</p>
 </section>
 </section>
 <section id="problem-3.-statistical-critique" class="level2">

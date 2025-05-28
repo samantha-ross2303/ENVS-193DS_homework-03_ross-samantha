@@ -141,19 +141,21 @@ personal_data_summary |> # starting data frame
 
 ### a. Describe in words what an affective visualization could look like for your personal data
 
-An affective visualization of my personal data could take the form of a **flowing landscape painting**, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect the high temperature. For example, cool blues represent lower temperatures and warm reds represent warmer temperatures. It could follow chronological order, where each point is a separate day. Rather than just presenting information, the piece would evoke the rhythms of my daily life and connects it to my environment, making the data feel more personal.
+An affective visualization of my personal data could take the form of a **flowing landscape painting**, where the height of hills and valleys represents the distance I walked or ran each day, and the colors of the sky reflect the high temperature. For example, cool blues represent lower temperatures and warm reds represent warmer temperatures. It could follow chronological order, where each point is a separate day. Rather than just presenting information, the piece would evoke the rhythms of my daily life and connects it to my environment, making the data feel more personal. I will first create this with code in R, and then make it more artistic via painting.
 
 ### b. Create a sketch (on paper) of your idea
+
+![](images/IMG_9331.jpg)
 
 ### c. Make a draft of your visualization
 
 ```{r affective-visualization-draft}
 
 personal_data <- personal_data |> 
-  mutate(date = as.Date(date)) #converting date column to date type
+  mutate(date = as.Date(date)) # converting date column to date type
 
-temp_min <- min(personal_data$high_temperature) # computing temp min for color scaling
-temp_max <- max(personal_data$high_temperature)# computing temp max for color scaling
+temp_min <- min(personal_data$high_temperature) # computing temp min for color gradient
+temp_max <- max(personal_data$high_temperature)# computing temp max for color gradient
 
 ggplot(personal_data,
        aes(x = date)) + # personal_data starting data frame
@@ -185,7 +187,7 @@ ggplot(personal_data,
 
 ### d. Write an artist statement
 
-
+In my affective data visualization, I am showing a line graph that depicts my walking and running distance (in miles) per day. It follows a chronological order. There are background panels behind each data point to depict the daily high temperature. I was influenced by Lorraine Woodruff-Long’s warming strips quilt, which inspired me to create a temperature gradient. The form of my work is written code. I created this data visualization on R, and researched how to create a color gradient - since we have not learned this in class.
 
 ## Problem 3. Statistical critique
 
