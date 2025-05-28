@@ -21,6 +21,8 @@ library(gt)
 library(here)
 library(janitor)
 library(readxl)
+library(dplyr)
+library(scales)
 
 personal_data <- read_csv(here("data", "[ENVS 193DS] Personal Data - Samantha Ross - Sheet1 (1).csv")) # storing personal data as an object called personal_data
 
@@ -145,7 +147,45 @@ An affective visualization of my personal data could take the form of a **flowin
 
 ### c. Make a draft of your visualization
 
+```{r affective-visualization-draft}
+
+personal_data <- personal_data |> 
+  mutate(date = as.Date(date)) #converting date column to date type
+
+temp_min <- min(personal_data$high_temperature) # computing temp min for color scaling
+temp_max <- max(personal_data$high_temperature)# computing temp max for color scaling
+
+ggplot(personal_data,
+       aes(x = date)) + # personal_data starting data frame
+  geom_rect(aes(xmin = date - 0.5, xmax = date + 0.5, 
+                ymin = -Inf, ymax = Inf, fill = high_temperature), 
+            alpha = 0.5) +   # adding in background panels to reflect high temperatures, with medium transparency
+  scale_fill_gradientn(
+    colors = c("steelblue", "skyblue", "cyan", "lightyellow", "yellow2", "orange", "red"),
+    limits = c(temp_min, temp_max),
+    name = "High Temp (°F)" 
+  ) + # creating a temperature gradient
+  geom_line(aes(y = walking_and_running_distance_miles), color = "brown2", size = 1.5) + # adding a line display the daily walking and running distance in chronological order
+  geom_point(aes(y = walking_and_running_distance_miles), color = "green4", size = 2) + # adding points for each individual day
+  labs(
+    title = "Affective Visualization of Walking and Running Distance\nper Day and High Temperature", # adding a title 
+    x = "Date", # changing x-axis name 
+    y = "Walking and Running Distance (miles)" # changing y-axis name
+  ) +
+  theme_bw() + # changing theme from default
+  theme(
+    panel.grid = element_blank(), # removing the grid
+    plot.title = element_text(face = "bold"), # making the title bold
+    panel.background = element_blank(), # making the background white
+    text = element_text(size = 14), # making the text larger
+    legend.position = "right" # changing the legend position
+  )
+  
+```
+
 ### d. Write an artist statement
+
+
 
 ## Problem 3. Statistical critique
 
